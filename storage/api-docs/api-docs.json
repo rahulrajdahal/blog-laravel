@@ -1,0 +1,68 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Blog api documentation.",
+        "version": "1.0"
+    },
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register a user",
+                "operationId": "573de1fed352c1205a32c4d1b9877375",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Register User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Register a user"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Register User": {
+                "title": "Register a new User",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "password_confirmation": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}
