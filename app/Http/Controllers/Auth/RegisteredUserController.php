@@ -33,6 +33,8 @@ use Illuminate\Validation\Rules;
  * 	)
  * )
  */
+
+
 class RegisteredUserController extends Controller
 {
     /**

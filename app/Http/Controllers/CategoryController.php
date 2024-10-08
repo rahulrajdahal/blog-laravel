@@ -6,10 +6,35 @@ use App\Models\Category;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema(
+ *  schema="Category",
+ *  title="Category",
+ * 	@OA\Property(
+ * 		property="title",
+ * 		type="string"
+ * 	),
+ * )
+ */
 class CategoryController extends Controller
 {
     use ValidatesRequests;
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/categories",
+     *     summary="Fetch all categories.",
+     *     tags={"Categories"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Fetch all tags"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function index()
     {
         try {
@@ -20,6 +45,31 @@ class CategoryController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/categories/{id}",
+     *     summary="Fetch the category with specific id.",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the category to be fetched.",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Category fetched successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Category not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function show($id)
     {
         try {
@@ -31,6 +81,29 @@ class CategoryController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/categories",
+     *     summary="Create a new Category",
+     *     tags={"Categories"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Category"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Category")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Category created successfully."
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $this->validate($request, ['title' => 'required']);
@@ -44,8 +117,38 @@ class CategoryController extends Controller
         }
     }
 
-
-
+    /**
+     * @OA\Patch(
+     *     path="/api/v1/categories/{id}",
+     *     summary="Update category with specified id.",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the category to be updated.",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(ref="#/components/schemas/Category"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Category")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Category updated successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Category not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         try {
@@ -64,12 +167,66 @@ class CategoryController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/v1/categories/{id}",
+     *     summary="Update category with specified id.",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the category to be updated.",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Category"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Category")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Category updated successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Category not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function updatePUT(Request $request, $id)
     {
         $this->validate($request, ['title' => 'required']);
         $this->update($request, $id);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/categories/{id}",
+     *     summary="Delete category with specified id.",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the category to be deleted.",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Category deleted successfully."
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         try {

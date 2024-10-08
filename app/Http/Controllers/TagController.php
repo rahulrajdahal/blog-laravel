@@ -6,10 +6,34 @@ use App\Models\Tag;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema(
+ *  schema="Tag",
+ *  title="Create a Tag",
+ * 	@OA\Property(
+ * 		property="title",
+ * 		type="string"
+ * 	),
+ * )
+ */
+
+
+
 class TagController extends Controller
 {
     use ValidatesRequests;
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/tags",
+     *     summary="Fetch all tags.",
+     *     tags={"Tags"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Fetch all tags"
+     *     )
+     * )
+     */
     public function index()
     {
         try {
@@ -20,6 +44,31 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/tags/{id}",
+     *     summary="Fetch the tag with specific id.",
+     *     tags={"Tags"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the tag to be fetched.",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Tag fetched successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Tag not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function show($id)
     {
         try {
@@ -31,6 +80,29 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/tags",
+     *     summary="Create a new tag",
+     *     tags={"Tags"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Tag"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Tag")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Tag created successfully."
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $this->validate($request, ['title' => 'required']);
@@ -44,6 +116,38 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * @OA\Patch(
+     *     path="/api/v1/tags/{id}",
+     *     summary="Update tag with specified id.",
+     *     tags={"Tags"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the tag to be updated.",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(ref="#/components/schemas/Tag"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Tag")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Tag updated successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Tag not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
 
@@ -63,11 +167,66 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/v1/tags/{id}",
+     *     summary="Update tag with specified id.",
+     *     tags={"Tags"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the tag to be updated.",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Tag"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Tag")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Tag updated successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Tag not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function updatePUT(Request $request, $id)
     {
         $this->validate($request, ['title' => 'required']);
         $this->update($request, $id);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/tags/{id}",
+     *     summary="Delete tag with specified id.",
+     *     tags={"Tags"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the tag to be deleted.",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Tag deleted successfully."
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         try {

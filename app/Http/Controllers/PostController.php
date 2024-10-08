@@ -10,10 +10,52 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Str;
 
+/**
+ * @OA\Schema(
+ *  schema="Post",
+ *  title="Post",
+ * 	@OA\Property(
+ * 		property="title",
+ * 		type="string",
+ * 		description="Title of the post.",
+ * 	),
+ * 	@OA\Property(
+ * 		property="featured_image",
+ * 		type="string",
+ * 		format="binary",
+ * 		description="Featured image for the post.",
+ * 	),
+ * 	@OA\Property(
+ * 		property="category_id",
+ * 		type="string",
+ * 		description="Category Id the post belongs to.",
+ * 	),
+ * 	@OA\Property(
+ * 		property="description",
+ * 		type="string",
+ * 		description="Description/content for the post.",
+ * 	),
+ * )
+ */
 class PostController extends Controller
 {
     use ValidatesRequests;
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/posts",
+     *     summary="Fetch all posts.",
+     *     tags={"Posts"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Fetch all posts"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function index()
     {
         try {
@@ -24,6 +66,31 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/posts/{id}",
+     *     summary="Fetch the post with specific id.",
+     *     tags={"Posts"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the post to be fetched.",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Post fetched successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Post not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function show($id)
     {
         try {
@@ -35,6 +102,28 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/posts",
+     *     summary="Create a new Post",
+     *     tags={"Posts"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(ref="#/components/schemas/Post")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Post created successfully."
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -70,6 +159,38 @@ class PostController extends Controller
 
 
 
+    /**
+     * @OA\Patch(
+     *     path="/api/v1/posts/{id}",
+     *     summary="Update post with specified id.",
+     *     tags={"Posts"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the post to be updated.",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(ref="#/components/schemas/Post"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Post")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Post updated successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Post not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         try {
@@ -116,6 +237,39 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/v1/posts/{id}",
+     *     summary="Update post with specified id.",
+     *     tags={"Posts"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the post to be updated.",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Post"),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Post")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Post updated successfully"
+     *     ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="Post not found"
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function updatePUT(Request $request, $id)
     {
         $this->validate($request, [
@@ -128,6 +282,27 @@ class PostController extends Controller
         $this->update($request, $id);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/posts/{id}",
+     *     summary="Delete post with specified id.",
+     *     tags={"Posts"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Id for the post to be deleted.",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Post deleted successfully."
+     *     ),
+     *      @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         try {
