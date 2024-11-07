@@ -5,50 +5,96 @@
         "version": "1.0"
     },
     "paths": {
-        "/api/v1/login": {
+        "/api/v1/register": {
             "post": {
                 "tags": [
-                    "Users"
+                    "Auth"
                 ],
-                "summary": "Login a user",
-                "operationId": "e0200270c52786921ebc283a1a371f12",
+                "summary": "Create a new user account",
+                "operationId": "6796c44e1f6079c411abbfed066c5907",
                 "requestBody": {
+                    "required": true,
                     "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Register"
+                            }
+                        },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Login User"
+                                "$ref": "#/components/schemas/Register"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "204": {
-                        "description": "Login a user"
+                    "201": {
+                        "description": "User created successfully."
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
-        "/register": {
+        "/api/v1/login": {
             "post": {
                 "tags": [
-                    "Users"
+                    "Auth"
                 ],
-                "summary": "Register a user",
-                "operationId": "573de1fed352c1205a32c4d1b9877375",
+                "summary": "Login a registered user.",
+                "operationId": "da2ca4d7a5cdec77b8b45a20373535cb",
                 "requestBody": {
+                    "required": true,
                     "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Login"
+                            }
+                        },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Register User"
+                                "$ref": "#/components/schemas/Login"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "204": {
-                        "description": "Register a user"
+                    "201": {
+                        "description": "Login successful."
+                    },
+                    "400": {
+                        "description": "Bad Request."
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout current user.",
+                "operationId": "c4eddaf1a2e990cc90e4326c0d731d41",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful."
+                    },
+                    "400": {
+                        "description": "Bad Request."
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/categories": {
@@ -65,7 +111,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -95,7 +146,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/categories/{id}": {
@@ -123,7 +179,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -164,7 +225,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -187,7 +253,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "patch": {
                 "tags": [
@@ -227,7 +298,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/posts": {
@@ -244,7 +320,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -269,7 +350,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/posts/{id}": {
@@ -297,7 +383,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -338,7 +429,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -361,7 +457,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "patch": {
                 "tags": [
@@ -401,7 +502,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/tags": {
@@ -415,7 +521,12 @@
                     "200": {
                         "description": "Fetch all tags"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -445,7 +556,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/tags/{id}": {
@@ -473,7 +589,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -514,7 +635,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -577,7 +703,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/user": {
@@ -597,31 +728,13 @@
     },
     "components": {
         "schemas": {
-            "Login User": {
-                "title": "Login registered User",
+            "Login": {
+                "description": "Login to user account.",
                 "properties": {
                     "email": {
                         "type": "string"
                     },
                     "password": {
-                        "type": "string"
-                    }
-                },
-                "type": "object"
-            },
-            "Register User": {
-                "title": "Register a new User",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    },
-                    "password_confirmation": {
                         "type": "string"
                     }
                 },
@@ -667,13 +780,38 @@
                     }
                 },
                 "type": "object"
+            },
+            "Register": {
+                "description": "Register a new user account.",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "password_confirmation": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },
     "tags": [
         {
-            "name": "Users",
-            "description": "Users"
+            "name": "Auth",
+            "description": "Auth"
         },
         {
             "name": "Categories",
@@ -686,6 +824,10 @@
         {
             "name": "Tags",
             "description": "Tags"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ]
 }

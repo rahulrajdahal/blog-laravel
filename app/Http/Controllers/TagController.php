@@ -28,6 +28,7 @@ class TagController extends Controller
      *     path="/api/v1/tags",
      *     summary="Fetch all tags.",
      *     tags={"Tags"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *         response=200,
      *         description="Fetch all tags"
@@ -49,6 +50,7 @@ class TagController extends Controller
      *     path="/api/v1/tags/{id}",
      *     summary="Fetch the tag with specific id.",
      *     tags={"Tags"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -85,6 +87,7 @@ class TagController extends Controller
      *     path="/api/v1/tags",
      *     summary="Create a new tag",
      *     tags={"Tags"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(ref="#/components/schemas/Tag"),
@@ -121,6 +124,7 @@ class TagController extends Controller
      *     path="/api/v1/tags/{id}",
      *     summary="Update tag with specified id.",
      *     tags={"Tags"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -172,6 +176,7 @@ class TagController extends Controller
      *     path="/api/v1/tags/{id}",
      *     summary="Update tag with specified id.",
      *     tags={"Tags"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -211,6 +216,7 @@ class TagController extends Controller
      *     path="/api/v1/tags/{id}",
      *     summary="Delete tag with specified id.",
      *     tags={"Tags"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

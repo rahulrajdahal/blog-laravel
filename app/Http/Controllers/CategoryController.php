@@ -25,6 +25,7 @@ class CategoryController extends Controller
      *     path="/api/v1/categories",
      *     summary="Fetch all categories.",
      *     tags={"Categories"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *         response=200,
      *         description="Fetch all tags"
@@ -50,6 +51,7 @@ class CategoryController extends Controller
      *     path="/api/v1/categories/{id}",
      *     summary="Fetch the category with specific id.",
      *     tags={"Categories"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -86,6 +88,7 @@ class CategoryController extends Controller
      *     path="/api/v1/categories",
      *     summary="Create a new Category",
      *     tags={"Categories"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(ref="#/components/schemas/Category"),
@@ -122,6 +125,7 @@ class CategoryController extends Controller
      *     path="/api/v1/categories/{id}",
      *     summary="Update category with specified id.",
      *     tags={"Categories"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -172,6 +176,7 @@ class CategoryController extends Controller
      *     path="/api/v1/categories/{id}",
      *     summary="Update category with specified id.",
      *     tags={"Categories"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -211,6 +216,7 @@ class CategoryController extends Controller
      *     path="/api/v1/categories/{id}",
      *     summary="Delete category with specified id.",
      *     tags={"Categories"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

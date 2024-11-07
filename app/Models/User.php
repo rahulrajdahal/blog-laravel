@@ -8,9 +8,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @OA\SecurityScheme(
+ *   type="http",
+ *   scheme="bearer",
+ *   securityScheme="bearerAuth",
+ *   bearerFormat="JWT"
+ * )
+ */
+
+
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.

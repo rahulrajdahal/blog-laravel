@@ -46,6 +46,7 @@ class PostController extends Controller
      *     path="/api/v1/posts",
      *     summary="Fetch all posts.",
      *     tags={"Posts"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *         response=200,
      *         description="Fetch all posts"
@@ -71,6 +72,7 @@ class PostController extends Controller
      *     path="/api/v1/posts/{id}",
      *     summary="Fetch the post with specific id.",
      *     tags={"Posts"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -107,6 +109,7 @@ class PostController extends Controller
      *     path="/api/v1/posts",
      *     summary="Create a new Post",
      *     tags={"Posts"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
@@ -164,6 +167,7 @@ class PostController extends Controller
      *     path="/api/v1/posts/{id}",
      *     summary="Update post with specified id.",
      *     tags={"Posts"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -242,6 +246,7 @@ class PostController extends Controller
      *     path="/api/v1/posts/{id}",
      *     summary="Update post with specified id.",
      *     tags={"Posts"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -287,6 +292,7 @@ class PostController extends Controller
      *     path="/api/v1/posts/{id}",
      *     summary="Delete post with specified id.",
      *     tags={"Posts"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
