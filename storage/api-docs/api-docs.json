@@ -513,13 +513,59 @@
         "/api/v1/tags": {
             "get": {
                 "tags": [
-                    "Tags"
+                    "tags"
                 ],
                 "summary": "Fetch all tags.",
                 "operationId": "49b8aae23d92f665318c3273cb54ec75",
                 "responses": {
                     "200": {
-                        "description": "Fetch all tags"
+                        "description": "Returns array of tags",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "array": {
+                                        "summary": "List of Arrays",
+                                        "value": {
+                                            "data": "[{'id':'Example Tag id 1', 'title': 'Example Tag 1'},{'id':'Example Tag id 2', 'title': 'Example Tag 2'},{'id':'Example Tag id 3', 'title': 'Example Tag 3'}]",
+                                            "message": "Tags fetched"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "error": {
+                                        "summary": "Unauthorized Error",
+                                        "value": {
+                                            "message": "Unauthenticated"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "error": {
+                                        "summary": "Internal Server Error",
+                                        "value": {
+                                            "message": "Internal Server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -530,7 +576,7 @@
             },
             "post": {
                 "tags": [
-                    "Tags"
+                    "tags"
                 ],
                 "summary": "Create a new tag",
                 "operationId": "9e21dd3b04a3e4b23f12a3ce0de8c7e5",
@@ -567,7 +613,7 @@
         "/api/v1/tags/{id}": {
             "get": {
                 "tags": [
-                    "Tags"
+                    "tags"
                 ],
                 "summary": "Fetch the tag with specific id.",
                 "operationId": "ef5174291db360e7b51137941ba41425",
@@ -598,7 +644,7 @@
             },
             "put": {
                 "tags": [
-                    "Tags"
+                    "tags"
                 ],
                 "summary": "Update tag with specified id.",
                 "operationId": "e7eae54e99e2e29945c84eae30df1350",
@@ -644,7 +690,7 @@
             },
             "delete": {
                 "tags": [
-                    "Tags"
+                    "tags"
                 ],
                 "summary": "Delete tag with specified id.",
                 "operationId": "b3c3d74fb2ee76e77f08e3fc9dc80a10",
@@ -663,11 +709,16 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "patch": {
                 "tags": [
-                    "Tags"
+                    "tags"
                 ],
                 "summary": "Update tag with specified id.",
                 "operationId": "009b5a15b3518a154b7ba1eaabd5189e",
@@ -722,7 +773,12 @@
                     "200": {
                         "description": "Fetch Logged in user"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
@@ -772,15 +828,6 @@
                 },
                 "type": "object"
             },
-            "Tag": {
-                "title": "Create a Tag",
-                "properties": {
-                    "title": {
-                        "type": "string"
-                    }
-                },
-                "type": "object"
-            },
             "Register": {
                 "description": "Register a new user account.",
                 "properties": {
@@ -795,6 +842,20 @@
                     },
                     "password_confirmation": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Tag": {
+                "required": [
+                    "title"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Title for the tag.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Example Tag"
                     }
                 },
                 "type": "object"
@@ -822,8 +883,8 @@
             "description": "Posts"
         },
         {
-            "name": "Tags",
-            "description": "Tags"
+            "name": "tags",
+            "description": "tags"
         },
         {
             "name": "Users",

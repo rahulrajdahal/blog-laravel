@@ -6,19 +6,6 @@ use App\Models\Tag;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
-/**
- * @OA\Schema(
- *  schema="Tag",
- *  title="Create a Tag",
- * 	@OA\Property(
- * 		property="title",
- * 		type="string"
- * 	),
- * )
- */
-
-
-
 class TagController extends Controller
 {
     use ValidatesRequests;
@@ -27,11 +14,28 @@ class TagController extends Controller
      * @OA\Get(
      *     path="/api/v1/tags",
      *     summary="Fetch all tags.",
-     *     tags={"Tags"},
+     *     tags={"tags"},
      *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *         response=200,
-     *         description="Fetch all tags"
+     *         description="Returns array of tags",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="array", value={"data": "[{'id':'Example Tag id 1', 'title': 'Example Tag 1'},{'id':'Example Tag id 2', 'title': 'Example Tag 2'},{'id':'Example Tag id 3', 'title': 'Example Tag 3'}]", "message": "Tags fetched"}, summary="List of Arrays")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized Error",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="error", value={"message": "Unauthenticated"}, summary="Unauthorized Error")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="error", value={"message": "Internal Server error"}, summary="Internal Server Error")
+     *         )
      *     )
      * )
      */
@@ -41,7 +45,7 @@ class TagController extends Controller
             $tags = Tag::all();
             return response()->json(['data' => $tags, 'message' => "Tags fetched!"], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage(), 'message' => "Internal Server Error"], 500);
         }
     }
 
@@ -49,7 +53,7 @@ class TagController extends Controller
      * @OA\Get(
      *     path="/api/v1/tags/{id}",
      *     summary="Fetch the tag with specific id.",
-     *     tags={"Tags"},
+     *     tags={"tags"},
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
@@ -86,7 +90,7 @@ class TagController extends Controller
      * @OA\Post(
      *     path="/api/v1/tags",
      *     summary="Create a new tag",
-     *     tags={"Tags"},
+     *     tags={"tags"},
      *     security={{"bearerAuth": {}}},
      *     @OA\RequestBody(
      *         required=true,
@@ -123,7 +127,7 @@ class TagController extends Controller
      * @OA\Patch(
      *     path="/api/v1/tags/{id}",
      *     summary="Update tag with specified id.",
-     *     tags={"Tags"},
+     *     tags={"tags"},
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
@@ -175,7 +179,7 @@ class TagController extends Controller
      * @OA\Put(
      *     path="/api/v1/tags/{id}",
      *     summary="Update tag with specified id.",
-     *     tags={"Tags"},
+     *     tags={"tags"},
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
@@ -215,7 +219,7 @@ class TagController extends Controller
      * @OA\Delete(
      *     path="/api/v1/tags/{id}",
      *     summary="Delete tag with specified id.",
-     *     tags={"Tags"},
+     *     tags={"tags"},
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="id",
