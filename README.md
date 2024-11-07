@@ -47,7 +47,7 @@ php artisan serve
 
 ## 🚀 Project Structure
 
-Inside of project [Todo](https://github.com/rahulrajdahal/blog-laravel), you'll see the following folders and files:
+Inside of project [Blog](https://github.com/rahulrajdahal/blog-laravel), you'll see the following folders and files:
 
 ```text
 /
